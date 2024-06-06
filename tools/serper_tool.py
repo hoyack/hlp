@@ -4,9 +4,18 @@ import requests
 from langchain.tools import tool
 
 class SearchTools:
+    """
+    Search tools class for performing internet searches.
+    """
+
     @tool("Search the internet")
     def search_internet(query):
-        """Useful to search the internet about a given topic and return relevant results"""
+        """
+        Perform an internet search and return relevant results.
+        
+        :param query: The search query to perform.
+        :return: A string containing the top search results.
+        """
         top_result_to_return = 4
         url = "https://google.serper.dev/search"
         payload = json.dumps({"q": query})
@@ -30,7 +39,12 @@ class SearchTools:
 
     @tool("Search news on the internet")
     def search_news(query):
-        """Useful to search news about a company, stock or any other topic and return relevant results"""
+        """
+        Perform a news search and return relevant results.
+        
+        :param query: The news search query to perform.
+        :return: A string containing the top news results.
+        """
         top_result_to_return = 4
         url = "https://google.serper.dev/news"
         payload = json.dumps({"q": query})
