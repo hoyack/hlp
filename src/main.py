@@ -1,12 +1,34 @@
+# main.py
+
 import os
 import sys
 import logging
+import time
 from dotenv import load_dotenv
 from crewai import Crew, Process
 from utils.json_loader import load_json
 from agents.agent_factory import create_agent
 from tasks.task_factory import create_task
-from utils.logger import logger
+
+# Configure logger
+logger = logging.getLogger('main_logger')
+logger.setLevel(logging.INFO)
+
+# Create log directory if it doesn't exist
+if not os.path.exists('log'):
+    os.makedirs('log')
+
+# Create file handler with a unique log file name
+log_file = os.path.join('log', f'{int(time.time())}.log')
+file_handler = logging.FileHandler(log_file)
+file_handler.setLevel(logging.INFO)
+
+# Create a logging format
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+
+# Add the handlers to the logger
+logger.addHandler(file_handler)
 
 class LoggerWriter:
     def __init__(self, logger, level):

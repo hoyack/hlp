@@ -11,5 +11,6 @@ Examine the `/templates` folder and edit the `agents_config.json` and `tasks_con
 Assign the tools to the agents and task according to the `tools_config.json`
 
 # Run the task
-python src/main.py\
+`python src/main.py`
+/
 Enter your business idea:

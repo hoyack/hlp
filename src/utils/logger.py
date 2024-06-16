@@ -1,29 +1,28 @@
+# utils/logger.py
+
 import logging
-import sys
 import os
 import time
 
-def setup_logger(name, log_dir, level=logging.INFO):
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-    
-    timestamp = int(time.time())
-    log_file = os.path.join(log_dir, f"{timestamp}.log")
+# Create the /log directory if it doesn't exist
+log_directory = 'log'
+if not os.path.exists(log_directory):
+    os.makedirs(log_directory)
 
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+# Get the current Unix timestamp
+timestamp = int(time.time())
 
-    handler = logging.FileHandler(log_file)
-    handler.setFormatter(formatter)
+# Define the log file path with the timestamp
+log_file_path = os.path.join(log_directory, f'{timestamp}.log')
 
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-    logger.addHandler(handler)
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file_path),
+        logging.StreamHandler()
+    ]
+)
 
-    # Add console handler to log to console as well
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-
-    return logger
-
-logger = setup_logger('main_logger', 'log')
+logger = logging.getLogger('main_logger')

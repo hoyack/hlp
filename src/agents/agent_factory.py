@@ -5,6 +5,7 @@ import json
 import importlib
 from crewai import Agent
 from crewai_tools import SerperDevTool
+from langchain_openai import ChatOpenAI
 from utils.logger import logger
 
 def load_tool_mapping(file_path):
@@ -37,6 +38,13 @@ def create_agent(agent_config):
 
     logger.info(f'Tools instantiated for agent {agent_config["role"]}: {tools}')
 
+    # Ensure an LLM model is specified
+    if "llm" not in agent_config:
+        raise ValueError(f'LLM model must be specified for agent: {agent_config["role"]}')
+
+    # Initialize the LLM
+    llm = ChatOpenAI(model=agent_config["llm"])
+
     try:
         agent = Agent(
             role=agent_config["role"],
@@ -45,10 +53,12 @@ def create_agent(agent_config):
             memory=agent_config.get("memory", False),
             backstory=agent_config["backstory"],
             tools=tools,
+            llm=llm,
             allow_delegation=agent_config["allow_delegation"],
             openai_api_key=os.getenv("OPENAI_API_KEY")
         )
         logger.info(f'Created agent: {agent_config["role"]} with tools: {tools}')
+        logger.info(f'Using LLM for agent {agent_config["role"]}: {llm.model_name}')
         return agent
     except Exception as e:
         logger.error(f'Error creating agent {agent_config["role"]}: {e}')

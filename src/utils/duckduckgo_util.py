@@ -1,6 +1,6 @@
 # src/utils/duckduckgo_util.py
 
-from langchain.tools import DuckDuckGoSearchResults
+from langchain_community.tools import DuckDuckGoSearchResults
 from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchRun
 import re
 
@@ -82,3 +82,4 @@ class DuckDuckGoNewsUtil:
             formatted_results += f"Source: {result['source']}\n\n"
 
         return formatted_results
+    
