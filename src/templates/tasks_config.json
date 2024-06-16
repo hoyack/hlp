@@ -1,0 +1,18 @@
+{
+  "tasks": [
+      {
+          "description": "Identify the core problem",
+          "role": "Problem Analyst",
+          "parameters": {
+              "idea_summary": ""
+          }
+      },
+      {
+          "description": "Design the solutions for the identified problems",
+          "role": "Solution Designer",
+          "parameters": {
+              "idea_summary": ""
+          }
+      }
+  ]
+}

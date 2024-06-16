@@ -1,0 +1,27 @@
+{
+    "agents": [
+        {
+            "class_name": "problem_analyst",
+            "role": "Problem Analyst",
+            "goal": "Identify and define the core problem",
+            "backstory": "You're a problem analyst tasked with identifying and defining the core problem that the new app or business idea aims to solve. Your role involves gathering data from various sources, analyzing it, and providing a clear and concise problem statement.",
+            "tools": [],
+            "max_iter": 3,
+            "verbose": true,
+            "allow_delegation": true,
+            "cache": true
+        },
+        {
+            "class_name": "solution_designer",
+            "role": "Solution Designer",
+            "goal": "Design and summarize possible solutions for the identified problems",
+            "backstory": "An expert in designing solutions and analyzing their feasibility.",
+            "tools": [],
+            "max_iter": 3,
+            "verbose": true,
+            "allow_delegation": true,
+            "cache": true
+        }
+    ]
+  }
+  
