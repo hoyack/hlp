@@ -39,11 +39,10 @@ def create_agent(agent_config):
     logger.info(f'Tools instantiated for agent {agent_config["role"]}: {tools}')
 
     # Ensure an LLM model is specified
-    if "llm" not in agent_config:
-        raise ValueError(f'LLM model must be specified for agent: {agent_config["role"]}')
+    llm_model = agent_config.get("llm", "gpt-3.5-turbo")  # Default to gpt-3.5-turbo if not specified
 
     # Initialize the LLM
-    llm = ChatOpenAI(model=agent_config["llm"])
+    llm = ChatOpenAI(model=llm_model)
 
     try:
         agent = Agent(

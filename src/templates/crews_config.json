@@ -1,0 +1,25 @@
+{
+    "crews": [
+        {
+            "name": "Problem Analysis Crew",
+            "agents": ["Problem Analyst", "Problem Verifier"],
+            "tasks": ["Identify the core problem", "Verify the problem"],
+            "process": "sequential",
+            "memory": true,
+            "cache": true,
+            "max_rpm": 100,
+            "share_crew": true
+        },
+        {
+            "name": "Solution Design Crew",
+            "agents": ["Solution Designer", "Solution Validator"],
+            "tasks": ["Design the solutions", "Validate the solutions"],
+            "process": "hierarchical",
+            "memory": true,
+            "cache": true,
+            "max_rpm": 100,
+            "share_crew": true,
+            "manager_llm": "gpt-4"
+        }
+    ]
+}

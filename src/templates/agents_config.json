@@ -3,9 +3,21 @@
         {
             "class_name": "problem_analyst",
             "role": "Problem Analyst",
-            "goal": "Identify and define the core problem",
+            "goal": "Identify and define the core problem for the Lean Canvas",
             "backstory": "You're a problem analyst tasked with identifying and defining the core problem that the new app or business idea aims to solve. Your role involves gathering data from various sources, analyzing it, and providing a clear and concise problem statement.",
-            "tools": ["SerperDevTool"],
+            "tools": ["DuckDuckGoNewsSearchTool"],
+            "llm": "gpt-4o",
+            "max_iter": 3,
+            "verbose": true,
+            "allow_delegation": true,
+            "cache": true
+        },
+        {
+            "class_name": "problem_verifier",
+            "role": "Problem Verifier",
+            "goal": "Verify the identified problem for accuracy and relevance",
+            "backstory": "An expert in verifying the accuracy and relevance of identified problems.",
+            "tools": ["BrowserlessTool"],
             "llm": "gpt-3.5-turbo",
             "max_iter": 3,
             "verbose": true,
@@ -17,7 +29,19 @@
             "role": "Solution Designer",
             "goal": "Design and summarize possible solutions for the identified problems",
             "backstory": "An expert in designing solutions and analyzing their feasibility.",
-            "tools": ["DuckDuckGoNewsSearchTool"],
+            "tools": ["SerperDevTool"],
+            "llm": "gpt-3.5-turbo",
+            "max_iter": 3,
+            "verbose": true,
+            "allow_delegation": true,
+            "cache": true
+        },
+        {
+            "class_name": "solution_validator",
+            "role": "Solution Validator",
+            "goal": "Validate the designed solutions for feasibility and effectiveness",
+            "backstory": "An expert in validating the feasibility and effectiveness of designed solutions.",
+            "tools": ["ExaSearchTool"],
             "llm": "gpt-3.5-turbo",
             "max_iter": 3,
             "verbose": true,
@@ -25,5 +49,6 @@
             "cache": true
         }
     ]
-  }
+}
+
   

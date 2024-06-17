@@ -1,18 +1,48 @@
 {
-  "tasks": [
-      {
-          "description": "Identify the core problem",
-          "role": "Problem Analyst",
-          "parameters": {
-              "idea_summary": ""
-          }
-      },
-      {
-          "description": "Design the solutions for the identified problems",
-          "role": "Solution Designer",
-          "parameters": {
-              "idea_summary": ""
-          }
-      }
-  ]
+    "tasks": [
+        {
+            "name": "Identify the core problem",
+            "role": "Problem Analyst",
+            "goal": "Identify and define the core problem for the Lean Canvas",
+            "description": "Analyze data to identify the primary problem that needs to be addressed.",
+            "steps": [
+                "Gather data from various sources",
+                "Analyze the data to identify patterns",
+                "Define the core problem"
+            ]
+        },
+        {
+            "name": "Verify the problem",
+            "role": "Problem Verifier",
+            "goal": "Verify the identified problem for accuracy and relevance",
+            "description": "Review and verify the accuracy and relevance of the identified problem.",
+            "steps": [
+                "Review the problem statement",
+                "Cross-check data sources",
+                "Validate the problem definition"
+            ]
+        },
+        {
+            "name": "Design the solutions",
+            "role": "Solution Designer",
+            "goal": "Design and summarize possible solutions for the identified problems",
+            "description": "Develop potential solutions to the identified problem and analyze their feasibility.",
+            "steps": [
+                "Brainstorm potential solutions",
+                "Evaluate each solution",
+                "Summarize the most feasible solutions"
+            ]
+        },
+        {
+            "name": "Validate the solutions",
+            "role": "Solution Validator",
+            "goal": "Validate the designed solutions for feasibility and effectiveness",
+            "description": "Review and validate the feasibility and effectiveness of the designed solutions.",
+            "steps": [
+                "Review the proposed solutions",
+                "Cross-check solution feasibility",
+                "Validate the effectiveness of solutions"
+            ]
+        }
+    ]
 }

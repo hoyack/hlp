@@ -1,11 +1,10 @@
-# main.py
-
 import os
 import sys
 import logging
 import time
 from dotenv import load_dotenv
 from crewai import Crew, Process
+from langchain_openai import ChatOpenAI
 from utils.json_loader import load_json
 from agents.agent_factory import create_agent
 from tasks.task_factory import create_task
@@ -45,6 +44,51 @@ class LoggerWriter:
 # Load environment variables from .env file
 load_dotenv()
 
+def instantiate_crews(crews_config, agents_config, tasks_config, idea):
+    previous_output = idea
+    for crew_config in crews_config["crews"]:
+        logger.info(f'Instantiating crew: {crew_config["name"]}')
+
+        # Create agents for the crew
+        agents = {agent_config["role"]: create_agent(agent_config) 
+                  for agent_config in agents_config["agents"] 
+                  if agent_config["role"] in crew_config["agents"]}
+
+        # Create tasks for the crew
+        tasks = [create_task(task_config, agents, previous_output) 
+                 for task_config in tasks_config["tasks"] 
+                 if task_config["name"] in crew_config["tasks"]]
+
+        # Set up the process
+        process = Process.sequential if crew_config["process"] == "sequential" else Process.hierarchical
+        manager_llm = None
+        if process == Process.hierarchical and "manager_llm" in crew_config:
+            manager_llm = ChatOpenAI(model=crew_config["manager_llm"])
+
+        # Assemble the crew
+        crew = Crew(
+            agents=list(agents.values()),
+            tasks=tasks,
+            process=process,
+            manager_llm=manager_llm,
+            memory=crew_config["memory"],
+            cache=crew_config["cache"],
+            max_rpm=crew_config["max_rpm"],
+            share_crew=crew_config["share_crew"]
+        )
+
+        logger.info(f'Crew {crew_config["name"]} assembled and kickoff initiated')
+
+        # Kick off the crew
+        result = crew.kickoff()
+        logger.info(f'Crew {crew_config["name"]} execution completed')
+        logger.info(f'Result: {result}')
+
+        # Use the output of the current crew as the input for the next crew
+        previous_output = result
+
+    return previous_output
+
 def main():
     idea = input("Enter your business idea: ")
 
@@ -53,32 +97,13 @@ def main():
     sys.stderr = LoggerWriter(logger, logging.ERROR)
 
     # Load configurations
+    crews_config = load_json('src/templates/crews_config.json')
     agents_config = load_json('src/templates/agents_config.json')
     tasks_config = load_json('src/templates/tasks_config.json')
 
-    # Create agents
-    agents = {config["role"]: create_agent(config) for config in agents_config["agents"]}
-
-    # Create tasks with the idea_summary
-    tasks = [create_task(config, agents, idea) for config in tasks_config["tasks"]]
-
-    # Assemble the crew
-    crew = Crew(
-        agents=list(agents.values()),
-        tasks=tasks,
-        process=Process.sequential,
-        memory=True,
-        cache=True,
-        max_rpm=100,
-        share_crew=True
-    )
-
-    logger.info('Crew assembled and kickoff initiated')
-
-    # Kick off the crew
-    result = crew.kickoff()
-    logger.info('Crew execution completed')
-    logger.info(f'Result: {result}')
+    # Instantiate and run crews
+    final_output = instantiate_crews(crews_config, agents_config, tasks_config, idea)
+    logger.info(f'Final output: {final_output}')
 
 if __name__ == "__main__":
     main()
