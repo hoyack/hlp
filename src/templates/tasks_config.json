@@ -5,44 +5,64 @@
             "role": "Problem Analyst",
             "goal": "Identify and define the core problem for the Lean Canvas",
             "description": "Analyze data to identify the primary problem that needs to be addressed.",
-            "steps": [
-                "Gather data from various sources",
-                "Analyze the data to identify patterns",
-                "Define the core problem"
-            ]
+            "expected_output": "A clear problem statement defining the core problem.",
+            "tools": ["DuckDuckGoNewsSearchTool"],
+            "async_execution": false,
+            "context": [],
+            "config": {},
+            "output_json": false,
+            "output_pydantic": false,
+            "output_file": false,
+            "callback": null,
+            "human_input": false
         },
         {
             "name": "Verify the problem",
             "role": "Problem Verifier",
             "goal": "Verify the identified problem for accuracy and relevance",
             "description": "Review and verify the accuracy and relevance of the identified problem.",
-            "steps": [
-                "Review the problem statement",
-                "Cross-check data sources",
-                "Validate the problem definition"
-            ]
+            "expected_output": "Validation report confirming the problem's accuracy and relevance.",
+            "tools": ["DuckDuckGoNewsSearchTool"],
+            "async_execution": false,
+            "context": [],
+            "config": {},
+            "output_json": false,
+            "output_pydantic": false,
+            "output_file": false,
+            "callback": null,
+            "human_input": false
         },
         {
             "name": "Design the solutions",
             "role": "Solution Designer",
             "goal": "Design and summarize possible solutions for the identified problems",
             "description": "Develop potential solutions to the identified problem and analyze their feasibility.",
-            "steps": [
-                "Brainstorm potential solutions",
-                "Evaluate each solution",
-                "Summarize the most feasible solutions"
-            ]
+            "expected_output": "A summary of potential solutions and their feasibility analysis.",
+            "tools": ["SerperDevTool"],
+            "async_execution": false,
+            "context": [],
+            "config": {},
+            "output_json": false,
+            "output_pydantic": false,
+            "output_file": false,
+            "callback": null,
+            "human_input": false
         },
         {
             "name": "Validate the solutions",
             "role": "Solution Validator",
             "goal": "Validate the designed solutions for feasibility and effectiveness",
             "description": "Review and validate the feasibility and effectiveness of the designed solutions.",
-            "steps": [
-                "Review the proposed solutions",
-                "Cross-check solution feasibility",
-                "Validate the effectiveness of solutions"
-            ]
+            "expected_output": "Validation report confirming the solutions' feasibility and effectiveness.",
+            "tools": ["SerperDevTool"],
+            "async_execution": false,
+            "context": [],
+            "config": {},
+            "output_json": false,
+            "output_pydantic": false,
+            "output_file": false,
+            "callback": null,
+            "human_input": false
         }
     ]
 }

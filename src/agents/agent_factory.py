@@ -7,6 +7,7 @@ from crewai import Agent
 from crewai_tools import SerperDevTool
 from langchain_openai import ChatOpenAI
 from utils.logger import logger
+import agents.callback as callback_module  # Import the callback module
 
 def load_tool_mapping(file_path):
     with open(file_path, 'r') as file:
@@ -20,6 +21,15 @@ def load_tool_mapping(file_path):
     return loaded_tools
 
 tool_mapping = load_tool_mapping('src/templates/tools_config.json')
+
+def resolve_callback(callback_name):
+    if callback_name:
+        try:
+            return getattr(callback_module, callback_name)
+        except AttributeError:
+            logger.error(f"Callback {callback_name} not found in callback module")
+            return None
+    return None
 
 def create_agent(agent_config):
     tools = []
@@ -44,6 +54,9 @@ def create_agent(agent_config):
     # Initialize the LLM
     llm = ChatOpenAI(model=llm_model)
 
+    # Resolve step callback
+    step_callback = resolve_callback(agent_config.get("step_callback"))
+
     try:
         agent = Agent(
             role=agent_config["role"],
@@ -53,7 +66,13 @@ def create_agent(agent_config):
             backstory=agent_config["backstory"],
             tools=tools,
             llm=llm,
+            function_calling_llm=ChatOpenAI(model=agent_config.get("function_calling_llm", "gpt-4")),
+            max_iter=agent_config.get("max_iter", 25),
+            max_rpm=agent_config.get("max_rpm"),
+            max_execution_time=agent_config.get("max_execution_time"),
             allow_delegation=agent_config["allow_delegation"],
+            step_callback=step_callback,  # Use the resolved function
+            cache=agent_config.get("cache", True),
             openai_api_key=os.getenv("OPENAI_API_KEY")
         )
         logger.info(f'Created agent: {agent_config["role"]} with tools: {tools}')

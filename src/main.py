@@ -71,10 +71,18 @@ def instantiate_crews(crews_config, agents_config, tasks_config, idea):
             tasks=tasks,
             process=process,
             manager_llm=manager_llm,
-            memory=crew_config["memory"],
-            cache=crew_config["cache"],
-            max_rpm=crew_config["max_rpm"],
-            share_crew=crew_config["share_crew"]
+            verbose=crew_config.get("verbose", False),
+            config=crew_config.get("config", {}),
+            max_rpm=crew_config.get("max_rpm"),
+            language=crew_config.get("language", "en"),
+            memory=crew_config.get("memory", False),
+            cache=crew_config.get("cache", True),
+            embedder=crew_config.get("embedder"),
+            full_output=crew_config.get("full_output", False),
+            step_callback=crew_config.get("step_callback"),
+            task_callback=crew_config.get("task_callback"),
+            share_crew=crew_config.get("share_crew", False),
+            output_log_file=crew_config.get("output_log_file")
         )
 
         logger.info(f'Crew {crew_config["name"]} assembled and kickoff initiated')

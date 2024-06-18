@@ -5,21 +5,37 @@
             "agents": ["Problem Analyst", "Problem Verifier"],
             "tasks": ["Identify the core problem", "Verify the problem"],
             "process": "sequential",
+            "verbose": true,
+            "config": {},
+            "max_rpm": 100,
+            "language": "en",
             "memory": true,
             "cache": true,
-            "max_rpm": 100,
-            "share_crew": true
+            "embedder": null,
+            "full_output": true,
+            "step_callback": null,
+            "task_callback": null,
+            "share_crew": true,
+            "output_log_file": null
         },
         {
             "name": "Solution Design Crew",
             "agents": ["Solution Designer", "Solution Validator"],
             "tasks": ["Design the solutions", "Validate the solutions"],
             "process": "hierarchical",
+            "manager_llm": "gpt-3.5-turbo",
+            "verbose": true,
+            "config": {},
+            "max_rpm": 100,
+            "language": "en",
             "memory": true,
             "cache": true,
-            "max_rpm": 100,
+            "embedder": null,
+            "full_output": true,
+            "step_callback": null,
+            "task_callback": null,
             "share_crew": true,
-            "manager_llm": "gpt-4"
+            "output_log_file": null
         }
     ]
 }
