@@ -6,8 +6,8 @@ import importlib
 from crewai import Agent
 from crewai_tools import SerperDevTool
 from langchain_openai import ChatOpenAI
-from utils.logger import logger
-import agents.callback as callback_module  # Import the callback module
+from src.utils.logger import logger
+import src.agents.callback as callback_module  # Import the callback module
 
 def load_tool_mapping(file_path):
     with open(file_path, 'r') as file:
@@ -20,7 +20,8 @@ def load_tool_mapping(file_path):
         loaded_tools[tool_name] = tool_class
     return loaded_tools
 
-tool_mapping = load_tool_mapping('src/templates/tools_config.json')
+base_path = os.path.dirname(os.path.abspath(__file__))
+tool_mapping = load_tool_mapping(os.path.join(base_path, '..', '..', 'templates', 'tools_config.json'))
 
 def resolve_callback(callback_name):
     if callback_name:

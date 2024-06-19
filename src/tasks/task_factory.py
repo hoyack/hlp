@@ -1,6 +1,6 @@
 # tasks/task_factory.py
 from crewai import Task
-from utils.logger import logger
+from src.utils.logger import logger
 
 def create_task(task_config, agents, idea_summary):
     """

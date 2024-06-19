@@ -5,9 +5,9 @@ import time
 from dotenv import load_dotenv
 from crewai import Crew, Process
 from langchain_openai import ChatOpenAI
-from utils.json_loader import load_json
-from agents.agent_factory import create_agent
-from tasks.task_factory import create_task
+from src.utils.json_loader import load_json
+from src.agents.agent_factory import create_agent
+from src.tasks.task_factory import create_task
 
 # Configure logger
 logger = logging.getLogger('main_logger')
@@ -105,9 +105,10 @@ def main():
     sys.stderr = LoggerWriter(logger, logging.ERROR)
 
     # Load configurations
-    crews_config = load_json('src/templates/crews_config.json')
-    agents_config = load_json('src/templates/agents_config.json')
-    tasks_config = load_json('src/templates/tasks_config.json')
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    crews_config = load_json(os.path.join(base_path, '..', 'templates', 'crews_config.json'))
+    agents_config = load_json(os.path.join(base_path, '..', 'templates', 'agents_config.json'))
+    tasks_config = load_json(os.path.join(base_path, '..', 'templates', 'tasks_config.json'))
 
     # Instantiate and run crews
     final_output = instantiate_crews(crews_config, agents_config, tasks_config, idea)

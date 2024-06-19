@@ -1,6 +1,6 @@
 # tools/browserless_tool.py
 from crewai_tools import BaseTool
-from utils.browserless_util import BrowserlessUtil
+from src.utils.browserless_util import BrowserlessUtil
 
 class BrowserlessTool(BaseTool):
     name: str = "BrowserlessTool"

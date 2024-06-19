@@ -1,7 +1,7 @@
 # tools/exa_tool.py
 
 from crewai_tools import BaseTool
-from utils.exa_util import ExaUtil
+from src.utils.exa_util import ExaUtil
 
 class ExaSearchTool(BaseTool):
     name: str = "ExaSearchTool"

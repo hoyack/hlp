@@ -1,5 +1,5 @@
 import json
 
-def load_json(filepath):
-    with open(filepath, 'r') as file:
+def load_json(file_path):
+    with open(file_path, 'r') as file:
         return json.load(file)

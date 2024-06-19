@@ -1,0 +1,10 @@
+{
+    "SerperDevTool": "crewai_tools:SerperDevTool",
+    "BrowserlessTool": "src.tools.browserless_tool:BrowserlessTool",
+    "ExaSearchTool": "src.tools.exa_tool:ExaSearchTool",
+    "ExaFindSimilarTool": "src.tools.exa_tool:ExaFindSimilarTool",
+    "ExaGetContentsTool": "src.tools.exa_tool:ExaGetContentsTool",
+    "DuckDuckGoSearchTool": "src.tools.duckduckgo_tool:DuckDuckGoSearchTool",
+    "DuckDuckGoCommunitySearchTool": "src.tools.duckduckgo_tool:DuckDuckGoCommunitySearchTool",
+    "DuckDuckGoNewsSearchTool": "src.tools.duckduckgo_tool:DuckDuckGoNewsSearchTool"
+}

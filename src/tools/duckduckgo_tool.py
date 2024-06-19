@@ -1,7 +1,7 @@
 # tools/duckduckgo_tool.py
 
 from crewai_tools import BaseTool
-from utils.duckduckgo_util import DuckDuckGoUtil, DuckDuckGoCommunityUtil, DuckDuckGoNewsUtil
+from src.utils.duckduckgo_util import DuckDuckGoUtil, DuckDuckGoCommunityUtil, DuckDuckGoNewsUtil
 
 class DuckDuckGoSearchTool(BaseTool):
     name: str = "DuckDuckGoSearchTool"
