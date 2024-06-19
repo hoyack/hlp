@@ -1,21 +1,21 @@
 # Project Structure
-hlp/
-│
-├── main.py
-├── templates/
-│ ├── agents_config.json
-│ ├── crews_config.json
-│ └── tasks_config.json
-└── src/
-├── agents/
-│ ├── agent_factory.py
-│ ├── callback.py
-├── tasks/
-│ └── task_factory.py
-├── utils/
-│ ├── json_loader.py
-│ └── logger.py
-└── crew_factory.py
+    hlp/
+    │
+    ├── main.py
+    ├── templates/
+    │ ├── agents_config.json
+    │ ├── crews_config.json
+    │ └── tasks_config.json
+    └── src/
+    ├── agents/
+    │ ├── agent_factory.py
+    │ ├── callback.py
+    ├── tasks/
+    │ └── task_factory.py
+    ├── utils/
+    │ ├── json_loader.py
+    │ └── logger.py
+    └── crew_factory.py
 # Installation
 
 1. Create and activate a new conda environment:
