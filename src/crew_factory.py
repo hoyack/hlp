@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from crewai import Crew, Process
 from langchain_openai import ChatOpenAI
 from src.utils.json_loader import load_json
-from src.agents.agent_factory import create_agent
+from agents.agent_factory import create_agent
 from src.tasks.task_factory import create_task
 
 # Configure logger

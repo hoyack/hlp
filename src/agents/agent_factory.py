@@ -1,27 +1,12 @@
 # agents/agent_factory.py
 
 import os
-import json
-import importlib
 from crewai import Agent
-from crewai_tools import SerperDevTool
 from langchain_openai import ChatOpenAI
+from src.agents import callback as callback_module  # Import the callback module
 from src.utils.logger import logger
-import src.agents.callback as callback_module  # Import the callback module
+from src.tools.tool_factory import MainToolFactory
 
-def load_tool_mapping(file_path):
-    with open(file_path, 'r') as file:
-        tool_mapping = json.load(file)
-    loaded_tools = {}
-    for tool_name, tool_path in tool_mapping.items():
-        module_name, class_name = tool_path.split(':')
-        module = importlib.import_module(module_name)
-        tool_class = getattr(module, class_name)
-        loaded_tools[tool_name] = tool_class
-    return loaded_tools
-
-base_path = os.path.dirname(os.path.abspath(__file__))
-tool_mapping = load_tool_mapping(os.path.join(base_path, '..', '..', 'templates', 'tools_config.json'))
 
 def resolve_callback(callback_name):
     if callback_name:
@@ -33,21 +18,18 @@ def resolve_callback(callback_name):
     return None
 
 def create_agent(agent_config):
+    tool_factory = MainToolFactory()
     tools = []
     for tool_name in agent_config["tools"]:
-        tool_class = tool_mapping.get(tool_name)
-        if tool_class:
-            try:
-                tool_instance = tool_class()
-                tools.append(tool_instance)
-                logger.info(f'Instantiated tool: {tool_name}')
-                logger.info(f'Tool details: {tool_instance.__dict__}')
-            except Exception as e:
-                logger.error(f'Error instantiating tool {tool_name}: {e}')
+        tool = tool_factory.get_tool(tool_name)
+        if tool:
+            logger.info(f'Got tool: {tool_name}')
+            logger.info(f'Tool details: {tool.__dict__}')
+            tools.append(tool)
         else:
-            logger.error(f'Tool {tool_name} not found in tool_mapping')
+            logger.error(f"Tool {tool_name} doesn't exist")
 
-    logger.info(f'Tools instantiated for agent {agent_config["role"]}: {tools}')
+    logger.info(f'Got Tools for agent {agent_config["role"]}: {tools}')
 
     # Ensure an LLM model is specified
     llm_model = agent_config.get("llm", "gpt-3.5-turbo")  # Default to gpt-3.5-turbo if not specified
