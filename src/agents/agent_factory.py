@@ -5,7 +5,7 @@ from crewai import Agent
 from langchain_openai import ChatOpenAI
 from src.agents import callback as callback_module  # Import the callback module
 from src.utils.logger import logger
-from src.tools.tool_factory import MainToolFactory
+from src.tools.tool_factory import create_tool
 
 
 def resolve_callback(callback_name):
@@ -17,17 +17,26 @@ def resolve_callback(callback_name):
             return None
     return None
 
-def create_agent(agent_config):
-    tool_factory = MainToolFactory()
+def create_agent(agent_config, tools_config):
+    def get_tool_config(name):
+        configs = tools_config["tools"]
+        for config in configs:
+            if config["name"] == name:
+                return config
+
     tools = []
     for tool_name in agent_config["tools"]:
-        tool = tool_factory.get_tool(tool_name)
-        if tool:
-            logger.info(f'Got tool: {tool_name}')
-            logger.info(f'Tool details: {tool.__dict__}')
-            tools.append(tool)
-        else:
+        tool_config = get_tool_config(tool_name)
+        if not tool_config:
             logger.error(f"Tool {tool_name} doesn't exist")
+        else:
+            tool = create_tool(tool_config)
+            if tool:
+                logger.info(f'Got tool: {tool_name}')
+                logger.info(f'Tool details: {tool.__dict__}')
+                tools.append(tool)
+            else:
+                logger.error(f"Tool {tool_name} doesn't exist")
 
     logger.info(f'Got Tools for agent {agent_config["role"]}: {tools}')
 

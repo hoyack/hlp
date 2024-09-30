@@ -5,8 +5,7 @@ import time
 from dotenv import load_dotenv
 from crewai import Crew, Process
 from langchain_openai import ChatOpenAI
-from src.utils.json_loader import load_json
-from agents.agent_factory import create_agent
+from src.agents.agent_factory import create_agent
 from src.tasks.task_factory import create_task
 
 # Configure logger
@@ -44,13 +43,13 @@ class LoggerWriter:
 # Load environment variables from .env file
 load_dotenv()
 
-def instantiate_crews(crews_config, agents_config, tasks_config, idea):
+def instantiate_crews(crews_config, agents_config, tasks_config, tools_config, idea):
     previous_output = idea
     for crew_config in crews_config["crews"]:
         logger.info(f'Instantiating crew: {crew_config["name"]}')
 
         # Create agents for the crew
-        agents = {agent_config["role"]: create_agent(agent_config) 
+        agents = {agent_config["role"]: create_agent(agent_config, tools_config) 
                   for agent_config in agents_config["agents"] 
                   if agent_config["role"] in crew_config["agents"]}
 
@@ -97,6 +96,13 @@ def instantiate_crews(crews_config, agents_config, tasks_config, idea):
 
     return previous_output
 
+
+def load_json(file_path):
+    import json
+    with open(file_path, 'r') as file:
+        return json.load(file)
+    
+
 def main():
     idea = input("Enter your business idea: ")
 
@@ -109,9 +115,10 @@ def main():
     crews_config = load_json(os.path.join(base_path, '..', 'templates', 'crews_config.json'))
     agents_config = load_json(os.path.join(base_path, '..', 'templates', 'agents_config.json'))
     tasks_config = load_json(os.path.join(base_path, '..', 'templates', 'tasks_config.json'))
+    tools_config = load_json(os.path.join(base_path, '..', 'templates', 'tools_config.json'))
 
     # Instantiate and run crews
-    final_output = instantiate_crews(crews_config, agents_config, tasks_config, idea)
+    final_output = instantiate_crews(crews_config, agents_config, tasks_config, tools_config, idea)
     logger.info(f'Final output: {final_output}')
 
 if __name__ == "__main__":

@@ -1,0 +1,76 @@
+{
+    "tools": [
+        {
+            "name": "SerperDevTool",
+            "description": "A tool that can be used to search the internet with a search_query.",
+            "type": "crewai",
+            "func": null,
+            "coroutine": null,
+            "args_schema": null,
+            "return_direct": false
+        },
+        {
+            "name": "BrowserlessTool",
+            "description": "A tool for scraping websites using Browserless. It fetches and cleans the content of a webpage. It requires a input of a URL in a format like https://example.com.",
+            "type": "custom",
+            "func": "Browserless_Tool",
+            "coroutine": null,
+            "args_schema": "UrlSchema",
+            "return_direct": true
+        },
+        {
+            "name": "DuckDuckGoSearchTool",
+            "description": "A tool for performing web searches using DuckDuckGo.",
+            "type": "custom",
+            "func": "DuckDuckGoSearch_Tool",
+            "coroutine": null,
+            "args_schema": "QuerySchema",
+            "return_direct": true
+        },
+        {
+            "name": "DuckDuckGoCommunitySearchTool",
+            "description": "A tool for performing web searches using the DuckDuckGo Community.",
+            "type": "custom",
+            "func": "DuckDuckGoCommunitySearch_Tool",
+            "coroutine": null,
+            "args_schema": "QuerySchema",
+            "return_direct": true
+        },
+        {
+            "name": "DuckDuckGoNewsSearchTool",
+            "description": "A tool for performing news searches using DuckDuckGo.",
+            "type": "custom",
+            "func": "DuckDuckGoNewsSearch_Tool",
+            "coroutine": null,
+            "args_schema": "QuerySchema",
+            "return_direct": true
+        },
+        {
+            "name": "ExaSearchTool",
+            "description": "A tool for performing searches using the EXA service. It takes a search inpute like: Top AI Companies",
+            "type": "custom",
+            "func": "ExaSearch_Tool",
+            "coroutine": null,
+            "args_schema": "QuerySchema",
+            "return_direct": true
+        },
+        {
+            "name": "ExaFindSimilarTool",
+            "description": "A tool for finding similar content using the EXA service.",
+            "type": "custom",
+            "func": "ExaFindSimilar_Tool",
+            "coroutine": null,
+            "args_schema": "UrlSchema",
+            "return_direct": true
+        },
+        {
+            "name": "ExaGetContentsTool",
+            "description": "A tool for getting contents using the EXA service. It takes a URL as the input.",
+            "type": "custom",
+            "func": "ExaGetContent_Tool",
+            "coroutine": null,
+            "args_schema": "IDsSchema",
+            "return_direct": true
+        }
+    ]
+}
