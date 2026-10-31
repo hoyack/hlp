@@ -49,7 +49,7 @@ cachetools==5.3.3
     #   google-auth
     #   gptcache
     #   lancedb
-certifi==2024.6.2
+certifi==2026.10.19
     # via
     #   httpcore
     #   httpx
